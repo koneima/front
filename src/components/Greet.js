@@ -1,29 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 
-class Greet extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            count: 0
-        }
-        // this.increment = this.increment.bind(this)
-    }
+const Greet = (props) => {
+    const [count, setCount] = useState(0);
+    const {name} = props;
 
-    increment = () =>
-        this.setState(() => ({
-            count: this.state.count + 1
-        }), () => console.log(this.state.count))
+    const increment = () => setCount(count + 1)
 
-
-    render() {
-        const {name} = this.props;
-        const {count} = this.state;
-
-        return <div>
-            <h1>Welcome {name}</h1>
-            <button onClick={this.increment}>Counter: {count}</button>
-        </div>
-    }
+    return <div>
+        <h1>Welcome {name}</h1>
+        <button onClick={increment}>Counter: {count}</button>
+    </div>
 }
 
-export default Greet
+export default Greet;

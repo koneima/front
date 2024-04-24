@@ -1,0 +1,18 @@
+.App {
+    display: grid;
+    place-items: center;
+    background-color: #951383;
+    width: inherit;
+}
+
+.TopNavBar {
+    display: grid;
+    align-items: center;
+    background-color: #2ebb1b;
+}
+
+.TopNavBarItem {
+    margin-left: 1em;
+    margin-right: 1em;
+    grid-row: 1;
+}
