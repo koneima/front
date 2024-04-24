@@ -9,6 +9,7 @@
     display: grid;
     align-items: center;
     background-color: #2ebb1b;
+    width: 100%;
 }
 
 .TopNavBarItem {
