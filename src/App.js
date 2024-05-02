@@ -1,4 +1,3 @@
-import "./styles/App.css"
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import ProtectedRoute from "./components/shared/ProtectedRoute";
 import Home from "./components/page/Home";
