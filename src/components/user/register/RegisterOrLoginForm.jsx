@@ -1,41 +1,47 @@
 import React, {useState} from "react";
-import {handleSubmit} from "../../../api/UserRegistrator";
+import {handleRegister} from "../../../api/register/UserRegistrator";
 import LoadingIndicator from "../../shared/LoadingIndicator";
 import {useNavigate} from "react-router-dom";
 import ErrorIndicator from "../../../error/ErrorIndicator";
+import {handleLogin} from "../../../api/login/UserLogin";
+import "../../../styles/page/LoginRegister.css"
 
-const RegisterForm = () => {
+const RegisterOrLoginForm = (props) => {
+    const type = props.type;
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-
-    return <form onSubmit={(event =>
-        handleSubmit(event, email, password, setLoading, setError, navigate))
-    }>
-        <h1>{email}</h1>
+    return <form
+        onSubmit={(event => type === "Login" ?
+            handleLogin(event, email, password, setLoading, setError, navigate) :
+            handleRegister(event, email, password, setLoading, setError, navigate))
+        }
+        className="form"
+    >
         <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
+            placeholder="email"
+            required
         />
 
-        <h1>{password}</h1>
         <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
+            placeholder="password"
+            required
         />
         <button type="submit">
-            Register
+            {type === "Login" ? "Login" : "Register"}
         </button>
         {loading && <LoadingIndicator/>}
         {error && <ErrorIndicator error={error}/>}
     </form>;
 }
 
-export default RegisterForm;
+export default RegisterOrLoginForm;

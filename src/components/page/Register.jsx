@@ -1,8 +1,16 @@
 import React from 'react';
-import RegisterForm from "../user/register/RegisterForm";
+import RegisterOrLoginForm from "../user/register/RegisterOrLoginForm";
+import {RouteButton} from "../shared/RouteButton";
+import "../../styles/page/LoginRegister.css"
 
 const Register = () => (
-    <RegisterForm/>
+    <div className="login-page">
+        <RegisterOrLoginForm type={"Register"}/>
+        <div className="redirect-container">
+            <h3>Maybe you have already been registered?</h3>
+            <RouteButton route={"login"}/>
+        </div>
+    </div>
 );
 
 export default Register;

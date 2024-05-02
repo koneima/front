@@ -1,4 +1,4 @@
-import api from "./Axios";
+import api from "../axios/Axios";
 
 const URL = "/user"
 const createUser = async (email, password) => {

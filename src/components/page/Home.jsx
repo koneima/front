@@ -1,7 +1,11 @@
 import React from 'react';
+import TopNavBar from "../shared/TopNavBar";
 
 const Home = () => (
-    <h1>Home</h1>
+    <div>
+        <TopNavBar/>
+        {/*<AuctionContainer />*/}
+    </div>
 );
 
 export default Home;

@@ -1,4 +1,4 @@
-import {ACCESS_TOKEN, REFRESH_TOKEN} from "../constants";
+import {ACCESS_TOKEN, REFRESH_TOKEN} from "../../constants";
 import AuthService from "./AuthService";
 import {jwtDecode} from "jwt-decode";
 
@@ -38,8 +38,8 @@ export const authorize = async (isAuthorized) => {
 
 
 const isExpired = (jwtPayload) => {
-    const expiresAt = jwtPayload.exp;
-    const now = Date.now();
+    const expiresAt = new Date(jwtPayload.exp * 1000);
+    const now = new Date();
 
     return expiresAt < now
 }

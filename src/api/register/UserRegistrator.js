@@ -1,10 +1,9 @@
-import UserService from "./UserService";
-import {useNavigate} from "react-router-dom";
+import UserService from "../user/UserService";
 
-export const handleSubmit = async (e, email, password, isLoading, isError, navigate) => {
+export const handleRegister = async (e, email, password, isLoading, isError, navigate) => {
     isLoading(true);
     e.preventDefault();
-    await createUser(email, password, isLoading, isError)
+    await createUser(email, password, isLoading, isError, navigate)
 }
 
 const createUser = async (email, password, isLoading, isError, navigate) => {

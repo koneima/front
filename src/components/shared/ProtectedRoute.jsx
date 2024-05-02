@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {Navigate} from "react-router-dom";
-import {authorize} from "../../api/TokenRefresher";
+import {authorize} from "../../api/authorization/TokenRefresher";
 
 const ProtectedRoute = ({children}) => {
     const [isAuthorized, setIsAuthorized] = useState(null);
