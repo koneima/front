@@ -4,6 +4,10 @@ import Home from "./components/page/Home";
 import Register from "./components/page/Register";
 import Login from "./components/page/Login";
 import NotFound from "./components/page/NotFound";
+import AuctionDetailsPage from "./components/page/AuctionDetailsPage";
+import AuctionCreatePage from "./components/page/AuctionCreatePage";
+import UserPage from "./components/page/UserPage";
+import MyAuctionPage from "./components/page/MyAuctionPage";
 
 function Logout() {
     localStorage.clear();
@@ -24,17 +28,23 @@ function App() {
                         <Home/>
                     </ProtectedRoute>
                 }/>
-                <Route path={"/login"} element={
-                    <Login/>
-                }/>
-                <Route path={"/logout"} element={
-                    <Logout/>}
+                <Route path={"/login"} element={<Login/>}/>
+                <Route path={"/me"} element={<UserPage/>}/>
+                <Route path={"/logout"} element={<Logout/>}/>
+                <Route path={"/register"} element={<RegisterAndLogout/>}/>
+                <Route path={"*"} element={<NotFound/>}/>
+                <Route path={"/my-auctions"} element={<MyAuctionPage/>}/>
+                <Route path={"/auctions/details/:id"} element={
+                    <ProtectedRoute>
+                        <AuctionDetailsPage/>
+                    </ProtectedRoute>
+                }
                 />
-                <Route path={"/register"} element=
-                    {<RegisterAndLogout/>}
-                />
-                <Route path={"*"} element=
-                    {<NotFound/>}
+                <Route path={"/auctions/creation"} element={
+                    <ProtectedRoute>
+                        <AuctionCreatePage/>
+                    </ProtectedRoute>
+                }
                 />
             </Routes>
         </BrowserRouter>
