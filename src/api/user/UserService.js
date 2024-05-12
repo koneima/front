@@ -1,8 +1,8 @@
-import api from "../axios/Axios";
+import userApi from "../axios/UserAxios";
 
 const URL = "/user"
 const createUser = async (email, password) => {
-    return await api.post(URL, {email: email, password: password});
+    return await userApi.post(URL, {email: email, password: password});
 }
 
 const UserService = {
