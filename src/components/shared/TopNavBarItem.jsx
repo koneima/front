@@ -1,19 +1,17 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import "../../styles/shared/NavBar.css"
+import {useNavigate} from "react-router-dom";
+import {Button} from "@mui/material";
 
 const TopNavBarItem = (props) => {
     const {name, navigateRoute} = props;
+    const navigate = useNavigate();
 
     return (
-        <div>
-            <Link
-                to={navigateRoute}
-                className="text-link"
-            >
-                <h1>{name}</h1>
-            </Link>
-        </div>
+        <Button
+            color="inherit"
+            onClick={() => navigate(navigateRoute)}
+        >{name}
+        </Button>
     )
 }
 
