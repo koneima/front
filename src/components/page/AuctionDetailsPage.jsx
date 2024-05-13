@@ -5,25 +5,34 @@ import {AuctionService} from "../../api/auction/AuctionService";
 import {useParams} from "react-router-dom";
 import TopNavBar from "../shared/TopNavBar";
 import ApiErrorAlert from "../../error/ApiErrorAlert";
+import ApiSuccessAlert from "../../error/ApiSuccessAlert";
 
 
 const AuctionDetailsPage = () => {
     const {id} = useParams();
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
     const [data, setData] = useState(null);
     const [price, setPrice] = useState('');
     const [priceError, setPriceError] = useState(false);
+    const [childKey, setChildKey] = useState(7);
 
     useEffect(() => {
-        getAuctionData(id, setData, setError);
+        getAuctionData(id, setData, setSuccess);
     }, []);
 
     function bidOnAction() {
+        setChildKey(childKey * 89);
         AuctionService.bidOnAuction(id, price)
-            .then(result => {
-                console.log(result.data);
+            .then(() => {
+                setSuccess(true);
+                getAuctionData(id, setData, setSuccess);
+                setError(null);
             })
-            .catch(err => setError(err))
+            .catch(err => {
+                setError(err)
+                setSuccess(null);
+            })
     }
 
     function getAuctionData(id, setData, setError) {
@@ -54,7 +63,8 @@ const AuctionDetailsPage = () => {
             <Grid item xs={12}>
                 <TopNavBar/>
             </Grid>
-            {error && <Grid item xs={12}> <ApiErrorAlert error={error}/> </Grid>}
+            {error && <Grid item xs={12}> <ApiErrorAlert error={error} key={childKey}/> </Grid>}
+            {success && <Grid item xs={12}> <ApiSuccessAlert message="Auction was bid successfully!" key={childKey}/> </Grid>}
             <Grid item xs={12}>
                 {data && <AuctionDetails
                     currentPrice={data.currentPrice}

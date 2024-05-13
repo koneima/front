@@ -4,35 +4,38 @@ import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DateTimePicker} from "@mui/x-date-pickers/DateTimePicker";
 import {AuctionService} from "../../api/auction/AuctionService";
+import ApiErrorAlert from "../../error/ApiErrorAlert";
+import ApiSuccessAlert from "../../error/ApiSuccessAlert";
 
 const AuctionCreateForm = () => {
     const [name, setName] = useState(null);
     const [description, setDescription] = useState(null);
     const [price, setPrice] = useState(null);
     const [startsAt, setStartsAt] = useState(null);
-    const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
+    const [childKey, setChildKey] = useState(7);
 
     const handleSubmit = () => {
-        if (!isNumeric(price)) {
-            setError(true);
-            return
-        }
-        setError(false);
+        setChildKey(childKey * 89);
         createAuction({
             name: name,
             description: description,
             price: price,
             startsAt: startsAt
-        }, setError)
+        })
     }
 
-    function createAuction(auction, setError) {
+    function createAuction(auction) {
         AuctionService.createAuction(auction)
-            .then(result => {
+            .then(() => {
                 setSuccess(true);
-                console.log(result.data);
-            }).catch(err => setError(err))
+                setError(null);
+            })
+            .catch(err => {
+                setError(err)
+                setSuccess(null)
+            })
     }
 
     return <Grid
@@ -41,6 +44,8 @@ const AuctionCreateForm = () => {
         alignItems="center"
         justifyContent="center"
     >
+        {error && <Grid item xs={12}> <ApiErrorAlert error={error} key={childKey}/> </Grid>}
+        {success && <Grid item xs={12}> <ApiSuccessAlert message="Auction was created!" key={childKey}/> </Grid>}
         <Grid item xs={12}>
             <Typography textAlign="center">CREATE AN AUCTION</Typography>
         </Grid>
@@ -64,9 +69,3 @@ const AuctionCreateForm = () => {
 };
 
 export default AuctionCreateForm;
-
-function isNumeric(str) {
-    if (typeof str !== "string") return false
-    return !isNaN(str) &&
-        !isNaN(parseFloat(str))
-}
