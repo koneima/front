@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Grid} from "@mui/material";
 import TopNavBar from "../shared/TopNavBar";
-import UserInformationContainer from "../user/UserInformationContainer";
+import UserInformationContainer from "../user/details/UserInformationContainer";
 
 const UserPage = () => {
 
