@@ -5,8 +5,11 @@ const createUser = async (email, password) => {
     return await userApi.post(URL, {email: email, password: password});
 }
 
+const receiveUserInformation = async () => {
+    return await userApi.get(URL + "/me")
+}
 const UserService = {
-    createUser
+    createUser, receiveUserInformation
 }
 
 export default UserService;

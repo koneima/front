@@ -1,6 +1,7 @@
 import React from 'react';
 import {Box, Grid} from "@mui/material";
 import TopNavBar from "../shared/TopNavBar";
+import UserInformationContainer from "../user/UserInformationContainer";
 
 const UserPage = () => {
 
@@ -13,7 +14,7 @@ const UserPage = () => {
                 <TopNavBar/>
             </Grid>
             <Grid item xs={12}>
-
+                <UserInformationContainer/>
             </Grid>
         </Grid>
     </Box>
