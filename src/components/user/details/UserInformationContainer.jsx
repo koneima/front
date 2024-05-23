@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button, Grid, Typography} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 import UserDetails from "./UserDetails";
 import ChangeCredentialsButton from "./ChangeCredentialsButton";
 import DeleteAccountButton from "./DeleteAccountButton";

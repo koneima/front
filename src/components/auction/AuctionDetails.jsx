@@ -15,8 +15,9 @@ const AuctionDetails = ({
                             winnerId
                         }) => {
     return <>
-        <Card sx={{minWidth: 275}}>
-            <CardContent>
+        <Card sx={{minWidth: 275}} style={{ border: "none", boxShadow: "none" }} >
+            <DetailText name="AUCTION"/>
+            <CardContent >
                 <DetailText name="Name" property={name}/>
                 <DetailText name="Description" property={description}/>
                 <DetailText name="Starts at" property={startsAt}/>

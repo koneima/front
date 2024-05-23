@@ -61,10 +61,6 @@ const createAuction = async (auction) => {
     })
 }
 
-const getItemFromAuction = async (id) => {
-    return await auctionApi.get(URL + `/${id}/items`)
-}
-
 export const AuctionService = {
-    getAuctions, getAuction, bidOnAuction, createAuction, getMyAuctions, getItemFromAuction
+    getAuctions, getAuction, bidOnAuction, createAuction, getMyAuctions
 }
