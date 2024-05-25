@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { Button, FormControl, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AuctionService } from "../../api/auction/AuctionService";
 import ApiErrorAlert from "../../error/ApiErrorAlert";
 import ApiSuccessAlert from "../../error/ApiSuccessAlert";
-import CenteredFlexBox from "../styled/CenteredFlexBox";
-import FullRowGridItem from "../styled/FullRowGridItem";
-import CenteredFullRowGridItem from "../styled/CenteredFullRowGridItem";
 
 const AuctionCreateForm = () => {
   const [name, setName] = useState(null);
@@ -42,23 +45,29 @@ const AuctionCreateForm = () => {
   }
 
   return (
-    <CenteredFlexBox>
+    <Grid container direction="row" alignItems="center" justifyContent="center">
       {error && (
-        <FullRowGridItem>
+        <Grid item xs={12}>
           {" "}
           <ApiErrorAlert error={error} key={childKey} />{" "}
-        </FullRowGridItem>
+        </Grid>
       )}
       {success && (
-        <FullRowGridItem>
+        <Grid item xs={12}>
           {" "}
           <ApiSuccessAlert message="Auction was created!" key={childKey} />{" "}
-        </FullRowGridItem>
+        </Grid>
       )}
-      <FullRowGridItem>
+      <Grid item xs={12}>
         <Typography textAlign="center">CREATE AN AUCTION</Typography>
-      </FullRowGridItem>
-      <CenteredFullRowGridItem>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
         <FormControl>
           <TextField
             label="Name"
@@ -86,8 +95,8 @@ const AuctionCreateForm = () => {
             Create
           </Button>
         </FormControl>
-      </CenteredFullRowGridItem>
-    </CenteredFlexBox>
+      </Grid>
+    </Grid>
   );
 };
 

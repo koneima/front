@@ -8,10 +8,6 @@ import ApiErrorAlert from "../../error/ApiErrorAlert";
 import ApiSuccessAlert from "../../error/ApiSuccessAlert";
 import ItemDetails from "../item/ItemDetails";
 import { ItemService } from "../../api/item/ItemService";
-import CenteredRowGridContainer from "../styled/CenteredRowGridContainer";
-import FlexBox from "../styled/FlexBox";
-import FullRowGridItem from "../styled/FullRowGridItem";
-import CenteredFlexBox from "../styled/CenteredFlexBox";
 
 const AuctionDetailsPage = () => {
   const { id } = useParams();
@@ -78,25 +74,31 @@ const AuctionDetailsPage = () => {
   };
 
   return (
-    <FlexBox>
-      <CenteredRowGridContainer>
-        <FullRowGridItem>
+    <Box sx={{ flexGrow: 1, p: 2 }}>
+      <Grid
+        container
+        spacing={1}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item xs={12}>
           <TopNavBar />
-        </FullRowGridItem>
+        </Grid>
         {error && (
-          <FullRowGridItem>
+          <Grid item xs={12}>
             {" "}
             <ApiErrorAlert error={error} key={childKey} />{" "}
-          </FullRowGridItem>
+          </Grid>
         )}
         {success && (
-          <FullRowGridItem>
+          <Grid item xs={12}>
             {" "}
             <ApiSuccessAlert
               message="Auction was bid successfully!"
               key={childKey}
             />{" "}
-          </FullRowGridItem>
+          </Grid>
         )}
         <Grid item xs={6}>
           {auctionData && (
@@ -125,9 +127,9 @@ const AuctionDetailsPage = () => {
             </Box>
           )}
         </Grid>
-        <FullRowGridItem>
+        <Grid item xs={12}>
           {auctionData && (
-            <CenteredFlexBox>
+            <Box display="flex" justifyContent="center" alignItems="center">
               {<Button onClick={handleBid}>BID</Button>}
               {!priceError ? (
                 <TextField
@@ -150,11 +152,11 @@ const AuctionDetailsPage = () => {
                   variant="standard"
                 />
               )}
-            </CenteredFlexBox>
+            </Box>
           )}
-        </FullRowGridItem>
-      </CenteredRowGridContainer>
-    </FlexBox>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

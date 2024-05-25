@@ -29,7 +29,9 @@ const ChangeCredentialsButton = () => {
     console.log(email);
     console.log(password);
     UserService.changeCredentials(email, password)
-      .then((_) => navigate("/login"))
+      .then((_) => {
+        navigate("/login");
+      })
       .catch((err) => console.log(err));
   };
 

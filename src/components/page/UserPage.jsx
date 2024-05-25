@@ -1,22 +1,20 @@
 import React from "react";
+import { Box, Grid } from "@mui/material";
 import TopNavBar from "../shared/TopNavBar";
 import UserInformationContainer from "../user/details/UserInformationContainer";
-import FlexBox from "../styled/FlexBox";
-import RowGridContainer from "../styled/RowGridContainer";
-import FullRowGridItem from "../styled/FullRowGridItem";
 
 const UserPage = () => {
   return (
-    <FlexBox>
-      <RowGridContainer>
-        <FullRowGridItem>
+    <Box sx={{ flexGrow: 1, p: 2 }}>
+      <Grid container spacing={2} direction="row">
+        <Grid item xs={12}>
           <TopNavBar />
-        </FullRowGridItem>
-        <FullRowGridItem>
+        </Grid>
+        <Grid item xs={12}>
           <UserInformationContainer />
-        </FullRowGridItem>
-      </RowGridContainer>
-    </FlexBox>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

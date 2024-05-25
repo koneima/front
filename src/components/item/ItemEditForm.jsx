@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ItemService } from "../../api/item/ItemService";
 import {
   Button,
   FormControl,
@@ -9,11 +10,10 @@ import {
 } from "@mui/material";
 import ApiErrorAlert from "../../error/ApiErrorAlert";
 import ApiSuccessAlert from "../../error/ApiSuccessAlert";
-import { ItemService } from "../../api/item/ItemService";
 import NestedItem from "../shared/NestedItem";
 
-const ItemCreateForm = (props) => {
-  const auctionId = props.auctionId;
+const ItemEditForm = (props) => {
+  const itemId = props.itemId;
 
   const [name, setName] = useState(null);
   const [price, setPrice] = useState(null);
@@ -25,11 +25,11 @@ const ItemCreateForm = (props) => {
 
   const handleSubmit = (categoryId, auctionId, name, price) => {
     setChildKey(childKey * 89);
-    createAuction(categoryId, auctionId, name, price);
+    editItem(categoryId, auctionId, name, price);
   };
 
-  function createAuction() {
-    ItemService.createItem(auctionId, category, name, price)
+  function editItem() {
+    ItemService.patchItem(itemId, name, category, price)
       .then(() => {
         setSuccess(true);
         setError(null);
@@ -41,9 +41,17 @@ const ItemCreateForm = (props) => {
   }
 
   useEffect(() => {
+    ItemService.getItem(itemId)
+      .then((result) => {
+        console.log(result.data.name);
+        console.log(result.data.price);
+        setName(result.data.name);
+        setPrice(result.data.price);
+        setCategory(result.data.category.id);
+      })
+      .catch((err) => console.log(err));
     ItemService.fetchCategories()
       .then((result) => {
-        console.log(result);
         setCategories(result.data);
       })
       .catch((err) => console.log(err));
@@ -60,11 +68,11 @@ const ItemCreateForm = (props) => {
       {success && (
         <Grid item xs={12}>
           {" "}
-          <ApiSuccessAlert message="Item was created!" key={childKey} />{" "}
+          <ApiSuccessAlert message="Item was edited!" key={childKey} />{" "}
         </Grid>
       )}
       <Grid item xs={12}>
-        <Typography textAlign="center">CREATE AN AUCTION ITEM</Typography>
+        <Typography textAlign="center">EDIT AN ITEM</Typography>
       </Grid>
       <Grid
         item
@@ -78,21 +86,27 @@ const ItemCreateForm = (props) => {
             label="Name"
             variant="standard"
             required
+            value={name || ""}
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
             label="Price"
             variant="standard"
             required
+            value={price || ""}
             onChange={(e) => setPrice(e.target.value)}
           />
           <List>
-            <NestedItem categories={categories} setCategory={setCategory}>
+            <NestedItem
+              categories={categories}
+              setCategory={setCategory}
+              value={category}
+            >
               Categories
             </NestedItem>
           </List>
           <Button size="large" onClick={handleSubmit}>
-            Create
+            Edit
           </Button>
         </FormControl>
       </Grid>
@@ -100,4 +114,4 @@ const ItemCreateForm = (props) => {
   );
 };
 
-export default ItemCreateForm;
+export default ItemEditForm;

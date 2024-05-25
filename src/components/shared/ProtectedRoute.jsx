@@ -1,22 +1,17 @@
-import {useEffect, useState} from "react";
-import {Navigate} from "react-router-dom";
-import {authorize} from "../../api/authorization/TokenRefresher";
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { authorize } from "../../api/authorization/TokenRefresher";
 
-const ProtectedRoute = ({children}) => {
-    const [isAuthorized, setIsAuthorized] = useState(null);
+const ProtectedRoute = ({ children }) => {
+  const [isAuthorized, setIsAuthorized] = useState(null);
 
-    useEffect(() => {
-        authorize(setIsAuthorized).catch(() => setIsAuthorized(false))
-    }, []);
+  useEffect(() => {
+    authorize(setIsAuthorized).catch(() => setIsAuthorized(false));
+  }, []);
 
-    if (isAuthorized === null)
-        return <div>Loading...</div>;
+  if (isAuthorized === null) return <div>Loading...</div>;
 
-    return (
-        isAuthorized ? children : <Navigate to={"login"}/>
-    );
-
-
-}
+  return isAuthorized ? children : <Navigate to={"login"} />;
+};
 
 export default ProtectedRoute;

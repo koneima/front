@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -7,12 +9,25 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import UserService from "../../../api/user/UserService";
-import { useNavigate } from "react-router-dom";
+import { ItemService } from "../../api/item/ItemService";
 
-const DeleteAccountButton = () => {
+const ItemActions = (props) => {
   const navigate = useNavigate();
+  const id = props.itemId;
   const [open, setOpen] = useState(false);
+
+  const handleDelete = () => {
+    ItemService.deleteItem(id)
+      .then((_) => navigate("/"))
+      .catch((err) => {
+        setOpen(false);
+        console.log(err);
+      });
+  };
+
+  const handleEdit = () => {
+    navigate(`/items/edition/${id}`);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,17 +37,10 @@ const DeleteAccountButton = () => {
     setOpen(false);
   };
 
-  const handleDelete = () => {
-    setOpen(false);
-    UserService.deleteUser()
-      .then((_) => navigate("/logout"))
-      .catch((err) => console.log(err));
-  };
-
   return (
-    <>
+    <Box display="flex" justifyContent="center" alignItems="center">
       <Button variant="outlined" onClick={handleClickOpen}>
-        delete account
+        delete
       </Button>
       <Dialog
         open={open}
@@ -40,10 +48,10 @@ const DeleteAccountButton = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Delete account</DialogTitle>
+        <DialogTitle id="alert-dialog-title">Delete item</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure that u want to delete your account?
+            Are you sure that u want to delete this item?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -53,8 +61,11 @@ const DeleteAccountButton = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+      <Button variant="outlined" onClick={handleEdit}>
+        Edit
+      </Button>
+    </Box>
   );
 };
 
-export default DeleteAccountButton;
+export default ItemActions;

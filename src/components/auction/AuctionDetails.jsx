@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent } from "@mui/material";
 import DetailText from "../shared/DetailText";
+import AuctionActions from "./AuctionActions";
+import ApiErrorAlert from "../../error/ApiErrorAlert";
 
 const AuctionDetails = ({
   currentPrice,
   description,
   endsAt,
+  id,
   name,
+  ownerId,
   startPrice,
   startsAt,
   winnerEmail,
+  winnerId,
 }) => {
+  const [error, setError] = useState(null);
+
   return (
     <>
+      {error && <ApiErrorAlert error={error}></ApiErrorAlert>}
       <Card
         sx={{ minWidth: 275 }}
         style={{ border: "none", boxShadow: "none" }}
@@ -34,6 +42,7 @@ const AuctionDetails = ({
             }
           />
         </CardContent>
+        <AuctionActions auctionId={id} setError={setError} />
       </Card>
     </>
   );

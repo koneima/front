@@ -1,29 +1,26 @@
 import React, { useState } from "react";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import TopNavBar from "../shared/TopNavBar";
 import AuctionSearchBar from "../auction/AuctionSearchBar";
 import MyAuctionContainer from "../auction/my/MyAuctionContainer";
-import FlexBox from "../styled/FlexBox";
-import RowGridContainer from "../styled/RowGridContainer";
-import FullRowGridItem from "../styled/FullRowGridItem";
 
 const MyAuctionPage = () => {
   const [filterValue, setFilterValue] = useState({});
 
   return (
-    <FlexBox>
-      <RowGridContainer>
-        <FullRowGridItem>
+    <Box sx={{ flexGrow: 1, p: 2 }}>
+      <Grid container spacing={2} direction="row">
+        <Grid item xs={12}>
           <TopNavBar />
-        </FullRowGridItem>
+        </Grid>
         <Grid item xs={2}>
           <AuctionSearchBar onChange={(value) => setFilterValue(value)} />
         </Grid>
         <Grid item xs={10}>
           <MyAuctionContainer filterValue={filterValue} />
         </Grid>
-      </RowGridContainer>
-    </FlexBox>
+      </Grid>
+    </Box>
   );
 };
 

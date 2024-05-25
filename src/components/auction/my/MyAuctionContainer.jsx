@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { AuctionService } from "../../../api/auction/AuctionService";
 import moment from "moment";
-import { Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import MyAuction from "./MyAuction";
-import FlexBox from "../../styled/FlexBox";
-import CenteredRowGridContainer from "../../styled/CenteredRowGridContainer";
-import FullRowGridItem from "../../styled/FullRowGridItem";
-import CenteredFlexBox from "../../styled/CenteredFlexBox";
 
 const AuctionContainer = (props) => {
   const filter = props.filterValue;
@@ -37,16 +33,16 @@ const AuctionContainer = (props) => {
   };
 
   return (
-    <FlexBox>
-      <CenteredRowGridContainer spacing={2}>
-        <FullRowGridItem>
-          <CenteredFlexBox>
+    <Box sx={{ flexGrow: 1, p: 2 }}>
+      <Grid container spacing={2} direction="row" alignItems="center">
+        <Grid item xs={12}>
+          <Box display="flex" justifyContent="center">
             <Button size={"large"} onClick={() => getAuctions(page)}>
               Search auctions
             </Button>
-          </CenteredFlexBox>
-        </FullRowGridItem>
-        <FullRowGridItem>
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
           <MyAuction
             id={"ID"}
             name={"NAME"}
@@ -68,10 +64,10 @@ const AuctionContainer = (props) => {
                 action={"DETAILS"}
               />
             ))}
-        </FullRowGridItem>
-        <FullRowGridItem>
+        </Grid>
+        <Grid item xs={12}>
           {loaded && (
-            <CenteredFlexBox>
+            <Box display="flex" justifyContent="center">
               {page !== 0 && (
                 <Button
                   onClick={() => {
@@ -91,11 +87,11 @@ const AuctionContainer = (props) => {
                   Next page
                 </Button>
               )}
-            </CenteredFlexBox>
+            </Box>
           )}
-        </FullRowGridItem>
-      </CenteredRowGridContainer>
-    </FlexBox>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 
