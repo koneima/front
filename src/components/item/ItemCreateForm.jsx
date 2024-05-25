@@ -1,36 +1,37 @@
-import React, { useState } from "react";
-import { Button, FormControl, TextField, Typography } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { AuctionService } from "../../api/auction/AuctionService";
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  FormControl,
+  List,
+  TextField,
+  Typography,
+} from "@mui/material";
 import ApiErrorAlert from "../../error/ApiErrorAlert";
 import ApiSuccessAlert from "../../error/ApiSuccessAlert";
-import CenteredFlexBox from "../styled/CenteredFlexBox";
+import { ItemService } from "../../api/item/ItemService";
+import NestedItem from "../shared/NestedItem";
 import FullRowGridItem from "../styled/FullRowGridItem";
+import CenteredFlexBox from "../styled/CenteredFlexBox";
 import CenteredFullRowGridItem from "../styled/CenteredFullRowGridItem";
 
-const AuctionCreateForm = () => {
+const ItemCreateForm = (props) => {
+  const auctionId = props.auctionId;
+
   const [name, setName] = useState(null);
-  const [description, setDescription] = useState(null);
   const [price, setPrice] = useState(null);
-  const [startsAt, setStartsAt] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [childKey, setChildKey] = useState(7);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(14);
 
-  const handleSubmit = () => {
+  const handleSubmit = (categoryId, auctionId, name, price) => {
     setChildKey(childKey * 89);
-    createAuction({
-      name: name,
-      description: description,
-      price: price,
-      startsAt: startsAt,
-    });
+    createAuction(categoryId, auctionId, name, price);
   };
 
-  function createAuction(auction) {
-    AuctionService.createAuction(auction)
+  function createAuction() {
+    ItemService.createItem(auctionId, category, name, price)
       .then(() => {
         setSuccess(true);
         setError(null);
@@ -40,6 +41,15 @@ const AuctionCreateForm = () => {
         setSuccess(null);
       });
   }
+
+  useEffect(() => {
+    ItemService.fetchCategories()
+      .then((result) => {
+        console.log(result);
+        setCategories(result.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <CenteredFlexBox>
@@ -52,11 +62,11 @@ const AuctionCreateForm = () => {
       {success && (
         <FullRowGridItem>
           {" "}
-          <ApiSuccessAlert message="Auction was created!" key={childKey} />{" "}
+          <ApiSuccessAlert message="Item was created!" key={childKey} />{" "}
         </FullRowGridItem>
       )}
       <FullRowGridItem>
-        <Typography textAlign="center">CREATE AN AUCTION</Typography>
+        <Typography textAlign="center">CREATE AN AUCTION ITEM</Typography>
       </FullRowGridItem>
       <CenteredFullRowGridItem>
         <FormControl>
@@ -67,21 +77,16 @@ const AuctionCreateForm = () => {
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
-            label="Description"
-            variant="standard"
-            multiline
-            required
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <TextField
             label="Price"
             variant="standard"
             required
             onChange={(e) => setPrice(e.target.value)}
           />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateTimePicker onChange={(value) => setStartsAt(value)} />
-          </LocalizationProvider>
+          <List>
+            <NestedItem categories={categories} setCategory={setCategory}>
+              Categories
+            </NestedItem>
+          </List>
           <Button size="large" onClick={handleSubmit}>
             Create
           </Button>
@@ -91,4 +96,4 @@ const AuctionCreateForm = () => {
   );
 };
 
-export default AuctionCreateForm;
+export default ItemCreateForm;

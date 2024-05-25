@@ -1,25 +1,27 @@
 import React, { useState } from "react";
+import { Grid } from "@mui/material";
 import TopNavBar from "../shared/TopNavBar";
-import AuctionCreateForm from "../auction/AuctionCreateForm";
+import { useParams } from "react-router-dom";
+import ItemCreateForm from "../item/ItemCreateForm";
 import FullRowGridItem from "../styled/FullRowGridItem";
 import FlexBox from "../styled/FlexBox";
-import RowGridContainer from "../styled/RowGridContainer";
 
-const AuctionCreatePage = () => {
+const ItemCreatePage = () => {
+  const { id } = useParams();
   const [error, setError] = useState(null);
   console.log(error);
   return (
     <FlexBox>
-      <RowGridContainer>
+      <Grid container spacing={2} direction="row">
         <FullRowGridItem>
           <TopNavBar />
         </FullRowGridItem>
         <FullRowGridItem>
-          <AuctionCreateForm error={setError} />
+          <ItemCreateForm auctionId={id} error={setError} />
         </FullRowGridItem>
-      </RowGridContainer>
+      </Grid>
     </FlexBox>
   );
 };
 
-export default AuctionCreatePage;
+export default ItemCreatePage;

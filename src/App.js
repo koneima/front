@@ -8,6 +8,7 @@ import AuctionDetailsPage from "./components/page/AuctionDetailsPage";
 import AuctionCreatePage from "./components/page/AuctionCreatePage";
 import UserPage from "./components/page/UserPage";
 import MyAuctionPage from "./components/page/MyAuctionPage";
+import ItemCreatePage from "./components/page/ItemCreatePage";
 
 function Logout() {
     localStorage.clear();
@@ -43,6 +44,12 @@ function App() {
                 <Route path={"/auctions/creation"} element={
                     <ProtectedRoute>
                         <AuctionCreatePage/>
+                    </ProtectedRoute>
+                }
+                />
+                <Route path={"/items/creation/:id"} element={
+                    <ProtectedRoute>
+                        <ItemCreatePage/>
                     </ProtectedRoute>
                 }
                 />
