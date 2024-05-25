@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, CardContent} from "@mui/material";
-import AuctionDetailText from "./AuctionDetailText";
+import DetailText from "../shared/DetailText";
 
 const AuctionDetails = ({
                             currentPrice,
@@ -17,14 +17,14 @@ const AuctionDetails = ({
     return <>
         <Card sx={{minWidth: 275}}>
             <CardContent>
-                <AuctionDetailText name="Name" property={name}/>
-                <AuctionDetailText name="Description" property={description}/>
-                <AuctionDetailText name="Starts at" property={startsAt}/>
-                <AuctionDetailText name="Ends at" property={endsAt}/>
-                <AuctionDetailText name="Start price" property={startPrice}/>
-                <AuctionDetailText name="Current price" property={currentPrice}/>
-                <AuctionDetailText name="Current winner"
-                                   property={winnerEmail !== null ? winnerEmail : "No one has bid the auction yet"}/>
+                <DetailText name="Name" property={name}/>
+                <DetailText name="Description" property={description}/>
+                <DetailText name="Starts at" property={startsAt}/>
+                <DetailText name="Ends at" property={endsAt}/>
+                <DetailText name="Start price" property={startPrice}/>
+                <DetailText name="Current price" property={currentPrice}/>
+                <DetailText name="Current winner"
+                            property={winnerEmail !== null ? winnerEmail : "No one has bid the auction yet"}/>
             </CardContent>
         </Card>
     </>

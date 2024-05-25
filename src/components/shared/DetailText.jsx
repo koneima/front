@@ -1,7 +1,7 @@
 import React from 'react';
 import {Typography} from "@mui/material";
 
-const AuctionDetailText = (props) => (
+const DetailText = (props) => (
     <>
         <Typography variant="body1" sx={{textAlign: "center"}}>
             {props.name}
@@ -12,4 +12,4 @@ const AuctionDetailText = (props) => (
     </>
 );
 
-export default AuctionDetailText;
+export default DetailText;

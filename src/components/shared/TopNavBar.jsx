@@ -1,27 +1,40 @@
 import React from "react";
 import TopNavBarItem from "./TopNavBarItem";
-import "../../styles/shared/NavBar.css"
+import {AppBar, Stack, Toolbar, Typography} from "@mui/material";
 
 const TopNavBar = () => {
 
     return (
-        <header>
-            <h2>REST API APP</h2>
-            <nav>
-                <ul>
+        <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h6" component="div" sx={{flexGrow: 1}}>REST API APP</Typography>
+                <Stack
+                    direction="row"
+                    spacing={2}
+                >
                     <TopNavBarItem
-                        name={"Auctions"}
-                        navigateRoute={"/auction"}
-                        className="nav-bar-item"
+                        name={"Home"}
+                        navigateRoute={"/"}
+                    />
+                    <TopNavBarItem
+                        name={"Create auction"}
+                        navigateRoute={"/auctions/creation"}
+                    />
+                    <TopNavBarItem
+                        name={"My auctions"}
+                        navigateRoute={"/my-auctions"}
                     />
                     <TopNavBarItem
                         name={"Me"}
-                        navigateRoute={"/user"}
-                        className="nav-bar-item"
+                        navigateRoute={"/me"}
                     />
-                </ul>
-            </nav>
-        </header>
+                    <TopNavBarItem
+                        name={"Logout"}
+                        navigateRoute={"/logout"}
+                    />
+                </Stack>
+            </Toolbar>
+        </AppBar>
     )
 }
 
