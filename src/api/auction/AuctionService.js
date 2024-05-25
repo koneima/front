@@ -1,7 +1,7 @@
 import auctionApi from "../axios/AuctionAxios";
 
 const URL = "/auctions"
-
+const MY_URL = "/my/auctions"
 const getAuctions = async (startsAtFrom,
                            startsAtTo,
                            endsAtFrom,
@@ -9,6 +9,27 @@ const getAuctions = async (startsAtFrom,
                            names,
                            page) => {
     return await auctionApi.get(URL, {
+        params: {
+            page: page,
+            size: 10,
+            name: names,
+            "startsAt.from": startsAtFrom,
+            "startsAt.to": startsAtTo,
+            "endsAt.from": endsAtFrom,
+            "endsAt.to": endsAtTo
+        }
+    })
+}
+
+
+const getMyAuctions = async (startsAtFrom,
+                             startsAtTo,
+                             endsAtFrom,
+                             endsAtTo,
+                             names,
+                             ownerId,
+                             page) => {
+    return await auctionApi.get(MY_URL, {
         params: {
             page: page,
             size: 10,
@@ -40,6 +61,10 @@ const createAuction = async (auction) => {
     })
 }
 
+const getItemFromAuction = async (id) => {
+    return await auctionApi.get(URL + `/${id}/items`)
+}
+
 export const AuctionService = {
-    getAuctions, getAuction, bidOnAuction, createAuction
+    getAuctions, getAuction, bidOnAuction, createAuction, getMyAuctions, getItemFromAuction
 }
