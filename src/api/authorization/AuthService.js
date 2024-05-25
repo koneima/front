@@ -1,21 +1,21 @@
 import axios from "axios";
 
 const loginApi = axios.create({
-    baseURL: process.env.REACT_APP_USER_API_URL
-})
+  baseURL: process.env.REACT_APP_USER_API_URL,
+});
 
-const URL = "/token"
+const URL = "/token";
 const receiveToken = async (email, password) => {
-    return await loginApi.post(URL, {email: email, password: password})
-}
+  return await loginApi.post(URL, { email: email, password: password });
+};
 
 const refreshToken = async (refreshToken) => {
-    return await loginApi.post(URL, {refreshToken: refreshToken})
-}
+  return await loginApi.post(URL, { refreshToken: refreshToken });
+};
 
 const AuthService = {
-    receiveToken,
-    refreshToken
-}
+  receiveToken,
+  refreshToken,
+};
 
 export default AuthService;

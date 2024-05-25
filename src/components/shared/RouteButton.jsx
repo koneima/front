@@ -1,20 +1,20 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function RouteButton(props) {
-    const navigate = useNavigate();
-    const route = props.route
+  const navigate = useNavigate();
+  const route = props.route;
 
-    function handleClick() {
-        navigate(`/${route}`);
-    }
+  function handleClick() {
+    navigate(`/${route}`);
+  }
 
-    return (
-        <button type="button" onClick={handleClick}>
-            {titleCase(route)}
-        </button>
-    );
+  return (
+    <button type="button" onClick={handleClick}>
+      {titleCase(route)}
+    </button>
+  );
 }
 
-function titleCase(string){
-    return string[0].toUpperCase() + string.slice(1).toLowerCase();
+function titleCase(string) {
+  return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
