@@ -1,6 +1,7 @@
-import { Card, CardContent } from "@mui/material";
+import { Box, Button, Card, CardContent } from "@mui/material";
 import React from "react";
 import DetailText from "../shared/DetailText";
+import ItemActions from "./ItemActions";
 
 const ItemDetails = ({ itemData }) => {
   return (
@@ -14,6 +15,9 @@ const ItemDetails = ({ itemData }) => {
           <DetailText name="Name" property={itemData.name} />
           <DetailText name="Original price" property={itemData.price} />
           <DetailText name="Category" property={itemData.category.name} />
+        </CardContent>
+        <CardContent>
+          <ItemActions itemId={itemData.id}></ItemActions>
         </CardContent>
       </Card>
     </>

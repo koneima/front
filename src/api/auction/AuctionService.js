@@ -64,10 +64,15 @@ const createAuction = async (auction) => {
   });
 };
 
+const deleteAuction = async (id) => {
+  return await auctionApi.delete(URL + `/${id}`);
+};
+
 export const AuctionService = {
   getAuctions,
   getAuction,
   bidOnAuction,
   createAuction,
   getMyAuctions,
+  deleteAuction,
 };

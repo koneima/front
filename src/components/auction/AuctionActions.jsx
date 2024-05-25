@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -7,12 +8,22 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import UserService from "../../../api/user/UserService";
+import { AuctionService } from "../../api/auction/AuctionService";
 import { useNavigate } from "react-router-dom";
 
-const DeleteAccountButton = () => {
+const AuctionActions = (props) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
+  const handleDelete = () => {
+    AuctionService.deleteAuction(props.auctionId)
+      .then((_) => navigate("/"))
+      .catch((err) => {
+        setOpen(false);
+        console.log(err);
+        props.setError(err);
+      });
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,17 +33,10 @@ const DeleteAccountButton = () => {
     setOpen(false);
   };
 
-  const handleDelete = () => {
-    setOpen(false);
-    UserService.deleteUser()
-      .then((_) => navigate("/logout"))
-      .catch((err) => console.log(err));
-  };
-
   return (
-    <>
+    <Box display="flex" justifyContent="center" alignItems="center">
       <Button variant="outlined" onClick={handleClickOpen}>
-        delete account
+        delete auction
       </Button>
       <Dialog
         open={open}
@@ -43,7 +47,7 @@ const DeleteAccountButton = () => {
         <DialogTitle id="alert-dialog-title">Delete account</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure that u want to delete your account?
+            Are you sure that u want to delete auction?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -53,8 +57,8 @@ const DeleteAccountButton = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 };
 
-export default DeleteAccountButton;
+export default AuctionActions;

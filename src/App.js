@@ -9,6 +9,7 @@ import AuctionCreatePage from "./components/page/AuctionCreatePage";
 import UserPage from "./components/page/UserPage";
 import MyAuctionPage from "./components/page/MyAuctionPage";
 import ItemCreatePage from "./components/page/ItemCreatePage";
+import ItemEditPage from "./components/page/ItemEditPage";
 
 function Logout() {
   localStorage.clear();
@@ -59,6 +60,14 @@ function App() {
           element={
             <ProtectedRoute>
               <ItemCreatePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={"/items/edition/:id"}
+          element={
+            <ProtectedRoute>
+              <ItemEditPage />
             </ProtectedRoute>
           }
         />
