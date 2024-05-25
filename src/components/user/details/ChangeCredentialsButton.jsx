@@ -9,11 +9,13 @@ import {
   TextField,
 } from "@mui/material";
 import UserService from "../../../api/user/UserService";
+import { useNavigate } from "react-router-dom";
 
 const ChangeCredentialsButton = () => {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,8 +29,10 @@ const ChangeCredentialsButton = () => {
     console.log(email);
     console.log(password);
     UserService.changeCredentials(email, password)
-      .then((result) => {})
-      .catch((err) => {});
+      .then((_) => {
+        navigate("/login");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
