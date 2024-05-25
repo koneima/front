@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
-    "@mui/icons-material": "^5.15.18"
+    "@mui/icons-material": "^5.15.18",
+    "prettier": "3.2.5"
   }
 }
